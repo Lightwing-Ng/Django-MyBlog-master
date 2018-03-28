@@ -70,14 +70,6 @@ class IndexView(ListView):
             is_paginated
         )
 
-        # Call the pagination data
-        pagination_data = self.pagination_data(
-            paginator,
-            page,
-            is_paginated
-        )
-
-        #
         context.update(pagination_data)
         return context
 
@@ -105,14 +97,14 @@ class IndexView(ListView):
                 last = True
         elif page_number == total_pages:
             left = page_range[
-                  (page_number - 3)
-                  if (page_number - 3) > 0
-                  else 0:
-                  page_number - 1
-                  ]
+                   (page_number - 3)
+                   if (page_number - 3) > 0
+                   else 0:
+                   page_number - 1
+                   ]
             if left[0] > 2:
                 left_has_more = True
-            elif left[0] > 1:
+            if left[0] > 1:
                 first = True
         else:
             left = page_range[
@@ -124,12 +116,12 @@ class IndexView(ListView):
 
             if right[-1] < total_pages - 1:
                 right_has_more = True
-            elif right[-1] < total_pages:
+            if right[-1] < total_pages:
                 last = True
 
             if left[0] > 2:
                 left_has_more = True
-            elif left[0] > 1:
+            if left[0] > 1:
                 first = True
 
         data = {

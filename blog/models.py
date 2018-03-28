@@ -15,6 +15,7 @@ from django.utils.six import python_2_unicode_compatible
 from django.utils.html import strip_tags
 
 
+# python_2_unicode_compatible 装饰器用于兼容 Python2
 @python_2_unicode_compatible
 class Category(models.Model):
     """
@@ -44,6 +45,7 @@ class Post(models.Model):
     """
     Database of articles
     """
+
     title = models.CharField(max_length=70)
 
     # For the article text, usging TextField
@@ -66,7 +68,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('bolg:detail', kwargs={'pk': self.pk})
+        return reverse('blog:detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['-created_time']

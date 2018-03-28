@@ -134,8 +134,10 @@ class WhooshSearchBackend(BaseSearchBackend):
             self.storage = FileStorage(self.path)
         else:
             global LOCALS
+
             if getattr(LOCALS, 'RAM_STORE', None) is None:
                 LOCALS.RAM_STORE = RamStorage()
+
             self.storage = LOCALS.RAM_STORE
 
         self.content_field_name, self.schema = self.build_schema(
@@ -419,6 +421,7 @@ class WhooshSearchBackend(BaseSearchBackend):
             for order_by in sort_by:
                 if order_by.startswith('-'):
                     sort_by_list.append(order_by[1:])
+
                     if len(sort_by_list) == 1:
                         reverse = True
                 else:
@@ -482,6 +485,7 @@ class WhooshSearchBackend(BaseSearchBackend):
         if narrow_queries is not None:
             # Potentially expensive? I don't see another way to do it in Whoosh...
             narrow_searcher = self.index.searcher()
+
             for nq in narrow_queries:
                 recent_narrowed_results = narrow_searcher.search(
                     self.parser.parse(force_text(nq)),
